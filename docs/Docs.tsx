@@ -2,9 +2,16 @@ import { useState } from 'react';
 
 import { Odometer } from '../src';
 
+function randomValue(decimals: number) {
+  const scale = 10 ** decimals;
+  return Math.floor(Math.random() * 100_000 * scale) / scale;
+}
+
+const initialValue = randomValue(2);
+
 export function Docs() {
-  const [value, setValue] = useState(12345.67);
-  const [duration, setDuration] = useState(800);
+  const [value, setValue] = useState(initialValue);
+  const [duration, setDuration] = useState(2000);
   const [decimals, setDecimals] = useState(2);
   const [separator, setSeparator] = useState(',');
 
@@ -33,13 +40,7 @@ export function Docs() {
           <button type='button' onClick={() => setValue((current) => current + 100)}>
             + 100
           </button>
-          <button
-            type='button'
-            onClick={() => {
-              const scale = 10 ** decimals;
-              setValue(Math.floor(Math.random() * 100_000 * scale) / scale);
-            }}
-          >
+          <button type='button' onClick={() => setValue(randomValue(decimals))}>
             Random
           </button>
         </div>
@@ -55,7 +56,7 @@ export function Docs() {
             className='reset-button'
             type='button'
             onClick={() => {
-              setValue(12345.67);
+              setValue(initialValue);
               setDuration(800);
               setDecimals(2);
               setSeparator(',');

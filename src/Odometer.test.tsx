@@ -29,6 +29,10 @@ function getRollers(container: HTMLElement) {
   return Array.from(container.querySelectorAll<HTMLElement>('[data-odometer-wheel]'));
 }
 
+function getRotationDegrees(roller: HTMLElement) {
+  return Number.parseFloat(roller.style.transform.slice(8, -4));
+}
+
 function advanceFrame() {
   const pendingFrames = Array.from(animationFrames.values());
   animationFrames.clear();
@@ -44,11 +48,10 @@ function advancePaintFrames() {
 
 describe('Odometer', () => {
   it('animates initial digits after the initial paint', () => {
-    const { container } = render(<Odometer value={123} />);
+    const { container } = render(<Odometer value={10} />);
     let rollers = getRollers(container);
 
     expect(rollers.map((roller) => roller.style.transform)).toEqual([
-      'rotateX(0deg)',
       'rotateX(0deg)',
       'rotateX(0deg)',
     ]);
@@ -58,10 +61,12 @@ describe('Odometer', () => {
     rollers = getRollers(container);
     expect(rollers.map((roller) => roller.style.transform)).toEqual([
       'rotateX(-36deg)',
-      'rotateX(-72deg)',
-      'rotateX(-108deg)',
+      'rotateX(-360deg)',
     ]);
     expect(rollers[0].style.transition).toBe('transform 1000ms ease-out');
+    expect(rollers[1].style.transition).toBe(rollers[0].style.transition);
+    const rotations = rollers.map(getRotationDegrees);
+    expect(Math.abs(rotations[1] / rotations[0])).toBe(10);
   });
 
   it('animates every digit when a multi-digit value first appears', () => {
@@ -71,10 +76,10 @@ describe('Odometer', () => {
 
     expect(rollers.map((roller) => roller.style.transform)).toEqual([
       'rotateX(-108deg)',
-      'rotateX(-108deg)',
-      'rotateX(-180deg)',
-      'rotateX(-180deg)',
-      'rotateX(-144deg)',
+      'rotateX(-1188deg)',
+      'rotateX(-3780deg)',
+      'rotateX(-3780deg)',
+      'rotateX(-3744deg)',
     ]);
     expect(rollers.every((roller) => roller.style.transition === 'transform 1000ms ease-out')).toBe(
       true,
@@ -84,12 +89,18 @@ describe('Odometer', () => {
   it('rolls lower and higher places at their odometer ratios', () => {
     const { container, rerender } = render(<Odometer value={19} />);
     advancePaintFrames();
-    rerender(<Odometer value={29} />);
     const rollers = getRollers(container);
+    const previousRotations = rollers.map(getRotationDegrees);
 
-    expect(rollers.map((roller) => roller.style.transform)).toEqual([
-      'rotateX(-72deg)',
-      'rotateX(-684deg)',
+    rerender(<Odometer value={29} />);
+    const rotations = rollers.map(getRotationDegrees);
+    const rotationDeltas = rotations.map((rotation, index) => rotation - previousRotations[index]);
+
+    expect(rotationDeltas).toEqual([-36, -360]);
+    expect(Math.abs(rotationDeltas[1] / rotationDeltas[0])).toBe(10);
+    expect(rollers.map((roller) => roller.style.transition)).toEqual([
+      'transform 1000ms ease-out',
+      'transform 1000ms ease-out',
     ]);
   });
 
@@ -111,12 +122,14 @@ describe('Odometer', () => {
   it('rolls backward when the value decreases', () => {
     const { container, rerender } = render(<Odometer value={20} />);
     advancePaintFrames();
-    rerender(<Odometer value={19} />);
     const rollers = getRollers(container);
+    const previousRotations = rollers.map(getRotationDegrees);
 
-    expect(rollers.map((roller) => roller.style.transform)).toEqual([
-      'rotateX(-36deg)',
-      'rotateX(36deg)',
+    rerender(<Odometer value={19} />);
+    const rotations = rollers.map(getRotationDegrees);
+
+    expect(rotations.map((rotation, index) => rotation - previousRotations[index])).toEqual([
+      36, 36,
     ]);
   });
 
@@ -153,11 +166,11 @@ describe('Odometer', () => {
     expect(root.children[4].textContent).toBe(',');
     expect(rollers.map((roller) => roller.style.transform)).toEqual([
       'rotateX(-36deg)',
-      'rotateX(-72deg)',
-      'rotateX(-108deg)',
-      'rotateX(-144deg)',
-      'rotateX(-180deg)',
-      'rotateX(-252deg)',
+      'rotateX(-432deg)',
+      'rotateX(-3708deg)',
+      'rotateX(-3744deg)',
+      'rotateX(-3780deg)',
+      'rotateX(-3852deg)',
     ]);
     expect(rollers.every((roller) => roller.style.transition === 'transform 350ms ease-out')).toBe(
       true,

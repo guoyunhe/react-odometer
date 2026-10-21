@@ -48,7 +48,7 @@ function capRollSteps(delta: bigint) {
 
 function Digit({ position, duration }: { position: bigint; duration: number }) {
   const digit = Number(position % 10n);
-  const previousPosition = useRef(position - BigInt(digit));
+  const previousPosition = useRef(0n);
   const [isReady, setIsReady] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
