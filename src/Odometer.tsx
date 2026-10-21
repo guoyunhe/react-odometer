@@ -64,12 +64,17 @@ export function Odometer({
     );
   });
   return (
-    <span className={className} style={{ display: 'inline-flex', ...style }}>
+    <span
+      className={className}
+      style={{ display: 'inline-flex', alignItems: 'baseline', ...style }}
+    >
       {value < 0 && '-'}
       {nodes}
-      {frac !== undefined && decimal}
+      {frac !== undefined && <span>{decimal}</span>}
       {frac?.split('').map((ch, i) => (
-        <Digit key={`f${i}`} digit={Number(ch)} duration={duration} />
+        <span key={`f${i}`}>
+          <Digit digit={Number(ch)} duration={duration} />
+        </span>
       ))}
     </span>
   );
