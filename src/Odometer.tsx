@@ -49,17 +49,32 @@ function capRollSteps(delta: bigint) {
 function Digit({ position, duration }: { position: bigint; duration: number }) {
   const digit = Number(position % 10n);
   const previousPosition = useRef(position - BigInt(digit));
+  const [isReady, setIsReady] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
+    let secondFrame = 0;
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => setIsReady(true));
+    });
+
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isReady) return;
+
     const delta = position - previousPosition.current;
     previousPosition.current = position;
     if (delta === 0n) return;
 
     setIsAnimating(true);
     setRotation((current) => current - Number(capRollSteps(delta)) * DEGREES_PER_DIGIT);
-  }, [position]);
+  }, [isReady, position]);
 
   return (
     <span
