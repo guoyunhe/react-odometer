@@ -64,6 +64,23 @@ describe('Odometer', () => {
     expect(rollers[0].style.transition).toBe('transform 1000ms ease-out');
   });
 
+  it('animates every digit when a multi-digit value first appears', () => {
+    const { container } = render(<Odometer value={33_554} separator=',' />);
+    advancePaintFrames();
+    const rollers = getRollers(container);
+
+    expect(rollers.map((roller) => roller.style.transform)).toEqual([
+      'rotateX(-108deg)',
+      'rotateX(-108deg)',
+      'rotateX(-180deg)',
+      'rotateX(-180deg)',
+      'rotateX(-144deg)',
+    ]);
+    expect(rollers.every((roller) => roller.style.transition === 'transform 1000ms ease-out')).toBe(
+      true,
+    );
+  });
+
   it('rolls lower and higher places at their odometer ratios', () => {
     const { container, rerender } = render(<Odometer value={19} />);
     advancePaintFrames();

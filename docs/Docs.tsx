@@ -33,6 +33,15 @@ export function Docs() {
           <button type='button' onClick={() => setValue((current) => current + 100)}>
             + 100
           </button>
+          <button
+            type='button'
+            onClick={() => {
+              const scale = 10 ** decimals;
+              setValue(Math.floor(Math.random() * 100_000 * scale) / scale);
+            }}
+          >
+            Random
+          </button>
         </div>
       </section>
 
