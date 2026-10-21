@@ -23,15 +23,21 @@
     "dev": "tsdown --watch",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
+    "playground": "vite --config playground/vite.config.ts",
+    "playground:build": "vite build --config playground/vite.config.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@guoyunhe/oxfmt-config": "^1.1.0",
     "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.0.0",
     "oxfmt": "^0.74.0",
     "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "tsdown": "^0.23.1",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vite": "^7.0.0"
   },
   "peerDependencies": {
     "react": ">=18"
