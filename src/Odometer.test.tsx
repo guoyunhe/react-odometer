@@ -1,5 +1,6 @@
-import { cleanup, render } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import { createRef } from 'react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { Odometer } from './Odometer';
 
@@ -67,5 +68,31 @@ describe('Odometer', () => {
     expect(rollers).toHaveLength(1);
     expect(rollers[0].style.transform).toBe('translateY(-2em)');
     expect(container.firstElementChild?.textContent).not.toContain('.');
+  });
+
+  it('forwards native span props, event handlers, and refs', () => {
+    const onClick = vi.fn();
+    const ref = createRef<HTMLSpanElement>();
+    const { getByRole } = render(
+      <Odometer
+        value={42}
+        id='current-count'
+        role='img'
+        aria-label='Current count'
+        data-kind='counter'
+        title='Current count'
+        onClick={onClick}
+        ref={ref}
+      />,
+    );
+    const root = getByRole('img', { name: 'Current count' });
+
+    expect(root.id).toBe('current-count');
+    expect(root.getAttribute('data-kind')).toBe('counter');
+    expect(root.getAttribute('title')).toBe('Current count');
+    expect(ref.current).toBe(root);
+
+    fireEvent.click(root);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

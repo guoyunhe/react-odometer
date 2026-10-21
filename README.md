@@ -29,6 +29,8 @@ export function Counter() {
 
 `OdometerProps` is also exported for TypeScript users.
 
+The component accepts and forwards standard `<span>` attributes, including `aria-*` and `data-*` attributes, event handlers, and `ref`. Its rendered children remain managed by the component.
+
 ## API
 
 | Prop        | Type            | Default | Description                                       |

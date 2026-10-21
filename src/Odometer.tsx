@@ -1,17 +1,32 @@
-import { useEffect, useState } from 'react';
-import type { CSSProperties } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
-export interface OdometerProps {
+/**
+ * Props for `Odometer`, including standard span attributes except `children` and
+ * `dangerouslySetInnerHTML`, which are managed by the component.
+ */
+export interface OdometerProps extends Omit<
+  ComponentPropsWithoutRef<'span'>,
+  'children' | 'dangerouslySetInnerHTML'
+> {
+  /** Numeric value to display. Negative values include a leading minus sign. */
   value: number;
-  /** Animation duration in milliseconds */
+
+  /** Digit animation duration in milliseconds. @default 1000 */
   duration?: number;
-  /** Number of fraction digits */
+
+  /** Number of digits after the decimal separator. Values are rounded to this precision. @default 0 */
   decimals?: number;
-  /** Thousands separator, empty for none */
+
+  /**
+   * String inserted between groups of three integer digits; an empty string disables grouping.
+   *
+   * @default ''
+   */
   separator?: string;
+
+  /** String inserted between the integer and fractional digits. @default '.' */
   decimal?: string;
-  className?: string;
-  style?: CSSProperties;
 }
 
 const DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -42,15 +57,20 @@ function Digit({ digit, duration }: { digit: number; duration: number }) {
   );
 }
 
-export function Odometer({
-  value,
-  duration = 1000,
-  decimals = 0,
-  separator = '',
-  decimal = '.',
-  className,
-  style,
-}: OdometerProps) {
+/** Renders a number as animated, vertically scrolling digits. */
+export const Odometer = forwardRef<HTMLSpanElement, OdometerProps>(function Odometer(
+  {
+    value,
+    duration = 1000,
+    decimals = 0,
+    separator = '',
+    decimal = '.',
+    className,
+    style,
+    ...spanProps
+  },
+  ref,
+) {
   const [int, frac] = Math.abs(value).toFixed(decimals).split('.');
   const intChars = int.split('');
   const nodes = intChars.map((ch, i) => {
@@ -65,6 +85,8 @@ export function Odometer({
   });
   return (
     <span
+      {...spanProps}
+      ref={ref}
       className={className}
       style={{ display: 'inline-flex', alignItems: 'baseline', ...style }}
     >
@@ -78,4 +100,4 @@ export function Odometer({
       ))}
     </span>
   );
-}
+});
