@@ -10,5 +10,5 @@
     "noEmit": true,
     "types": ["vite/client"]
   },
-  "include": ["src", "*.config.ts", "playground/**/*.ts", "playground/**/*.tsx"]
+  "include": ["src", "*.config.ts", "docs/**/*.ts", "docs/**/*.tsx"]
 }

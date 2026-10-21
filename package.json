@@ -9,7 +9,7 @@
     "odometer",
     "react"
   ],
-  "homepage": "https://github.com/guoyunhe/react-odometer#readme",
+  "homepage": "https://guoyunhe.github.io/react-odometer/",
   "bugs": {
     "url": "https://github.com/guoyunhe/react-odometer/issues"
   },
@@ -39,12 +39,12 @@
   },
   "scripts": {
     "build": "tsdown",
-    "dev": "vite --config playground/vite.config.ts",
+    "dev": "vite --config docs/vite.config.ts",
     "dev:lib": "tsdown --watch",
+    "docs": "vite --config docs/vite.config.ts",
+    "docs:build": "vite build --config docs/vite.config.ts",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "playground": "vite --config playground/vite.config.ts",
-    "playground:build": "vite build --config playground/vite.config.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
@@ -61,5 +61,6 @@
   },
   "peerDependencies": {
     "react": ">=18"
-  }
+  },
+  "packageManager": "pnpm@12.14.0"
 }

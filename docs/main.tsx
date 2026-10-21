@@ -1,12 +1,12 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { Playground } from './Playground';
+import { Docs } from './Docs';
 
 import './style.css';
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Playground />
+    <Docs />
   </React.StrictMode>,
 );

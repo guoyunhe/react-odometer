@@ -47,19 +47,21 @@ Negative values are displayed with a leading minus sign. The component uses the 
 
 Licensed under the [GNU Affero General Public License v3.0 only](./LICENSE).
 
-## Development preview
+## Documentation site
 
-Start the Vite playground to preview the component while editing its source:
+Run the Vite documentation site locally:
 
 ```sh
 pnpm install
 pnpm dev
 ```
 
-Open the local URL printed by Vite. The playground imports the component directly from `src`, so edits are reflected with hot module replacement. To build the playground, run:
+The site imports the component directly from `src`, so edits are reflected with hot module replacement. Build it with:
 
 ```sh
-pnpm playground:build
+pnpm docs:build
 ```
 
 To watch the library build instead, run `pnpm dev:lib`.
+
+GitHub Actions deploys the site to [GitHub Pages](https://guoyunhe.github.io/react-odometer/) when changes are pushed to `main`. Set the repository's Pages source to **GitHub Actions** in Settings → Pages to enable deployment.

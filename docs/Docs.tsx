@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Odometer } from '../src';
 
-export function Playground() {
+export function Docs() {
   const [value, setValue] = useState(12345.67);
   const [duration, setDuration] = useState(800);
   const [decimals, setDecimals] = useState(2);
@@ -15,7 +15,7 @@ export function Playground() {
           0
         </div>
         <div>
-          <p className='eyebrow'>REACT COMPONENT PLAYGROUND</p>
+          <p className='eyebrow'>REACT COMPONENT DOCS</p>
           <h1>Odometer</h1>
         </div>
         <span className='version'>Live preview</span>
