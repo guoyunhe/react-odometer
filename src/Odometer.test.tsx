@@ -9,9 +9,7 @@ afterEach(() => {
 });
 
 function getRollers(container: HTMLElement) {
-  return Array.from(container.querySelectorAll<HTMLElement>('span')).filter((element) =>
-    element.style.transform.startsWith('translateY('),
-  );
+  return Array.from(container.querySelectorAll<HTMLElement>('[data-odometer-wheel]'));
 }
 
 describe('Odometer', () => {
@@ -20,11 +18,41 @@ describe('Odometer', () => {
     const rollers = getRollers(container);
 
     expect(rollers.map((roller) => roller.style.transform)).toEqual([
-      'translateY(-1em)',
-      'translateY(-2em)',
-      'translateY(-3em)',
+      'rotateX(-36deg)',
+      'rotateX(-72deg)',
+      'rotateX(-108deg)',
     ]);
     expect(rollers[0].style.transition).toBe('transform 1000ms ease-out');
+  });
+
+  it('rolls lower and higher places at their odometer ratios', () => {
+    const { container, rerender } = render(<Odometer value={19} />);
+    rerender(<Odometer value={29} />);
+    const rollers = getRollers(container);
+
+    expect(rollers.map((roller) => roller.style.transform)).toEqual([
+      'rotateX(-72deg)',
+      'rotateX(-684deg)',
+    ]);
+  });
+
+  it('rolls backward when the value decreases', () => {
+    const { container, rerender } = render(<Odometer value={20} />);
+    rerender(<Odometer value={19} />);
+    const rollers = getRollers(container);
+
+    expect(rollers.map((roller) => roller.style.transform)).toEqual([
+      'rotateX(-36deg)',
+      'rotateX(36deg)',
+    ]);
+  });
+
+  it('caps large changes at ten full turns while preserving the target digit', () => {
+    const { container, rerender } = render(<Odometer value={0} />);
+    rerender(<Odometer value={1_000_000} />);
+    const rollers = getRollers(container);
+
+    expect(rollers[rollers.length - 1].style.transform).toBe('rotateX(-3600deg)');
   });
 
   it('formats negative fractional values and forwards display props', () => {
@@ -49,12 +77,12 @@ describe('Odometer', () => {
     expect(root.children[1].firstChild?.textContent).toBe(',');
     expect(root.children[4].textContent).toBe(',');
     expect(rollers.map((roller) => roller.style.transform)).toEqual([
-      'translateY(-1em)',
-      'translateY(-2em)',
-      'translateY(-3em)',
-      'translateY(-4em)',
-      'translateY(-5em)',
-      'translateY(-7em)',
+      'rotateX(-36deg)',
+      'rotateX(-72deg)',
+      'rotateX(-108deg)',
+      'rotateX(-144deg)',
+      'rotateX(-180deg)',
+      'rotateX(-252deg)',
     ]);
     expect(rollers.every((roller) => roller.style.transition === 'transform 350ms ease-out')).toBe(
       true,
@@ -66,7 +94,7 @@ describe('Odometer', () => {
     const rollers = getRollers(container);
 
     expect(rollers).toHaveLength(1);
-    expect(rollers[0].style.transform).toBe('translateY(-2em)');
+    expect(rollers[0].style.transform).toBe('rotateX(-72deg)');
     expect(container.firstElementChild?.textContent).not.toContain('.');
   });
 

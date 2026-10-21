@@ -47,6 +47,8 @@ The component accepts and forwards standard `<span>` attributes, including `aria
 
 Negative values are displayed with a leading minus sign. The component uses the surrounding font size and inherits text styling.
 
+Each wheel rolls in proportion to the value change. For example, changing `19` to `29` turns the units wheel once while the tens wheel advances one digit. A single update animates at most ten complete turns per wheel before settling on its final digit.
+
 ## License
 
 Licensed under the [GNU Affero General Public License v3.0 only](./LICENSE).
