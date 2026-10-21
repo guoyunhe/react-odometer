@@ -1,3 +1,6 @@
-import config from '@guoyunhe/oxfmt-config';
+import preset from '@guoyunhe/oxfmt-config';
+import { defineConfig } from 'oxfmt';
 
-export default config;
+export default defineConfig({
+  ...preset,
+});
