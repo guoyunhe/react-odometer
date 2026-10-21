@@ -2,6 +2,8 @@
 
 A React component for smooth, rolling number animations.
 
+[Live demo](https://guoyunhe.github.io/react-odometer/)
+
 ## Install
 
 ```sh

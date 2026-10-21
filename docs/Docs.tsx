@@ -15,7 +15,7 @@ export function Docs() {
           0
         </div>
         <div>
-          <p className='eyebrow'>REACT COMPONENT DOCS</p>
+          <p className='eyebrow'>@guoyunhe/react-odometer</p>
           <h1>Odometer</h1>
         </div>
         <span className='version'>Live preview</span>
@@ -105,10 +105,6 @@ export function Docs() {
           </label>
         </div>
       </section>
-
-      <footer>
-        Edit the component in <code>src/Odometer.tsx</code> to see changes live.
-      </footer>
     </main>
   );
 }
