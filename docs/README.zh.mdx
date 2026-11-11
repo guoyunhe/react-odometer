@@ -1,0 +1,27 @@
+import Playground from './Playground';
+
+# @guoyunhe/react-odometer
+
+平滑滚动的数字动画 React 组件。修改数值或调整下方参数，即可实时查看数字滚动效果。
+
+## 在线演示
+
+<Playground />
+
+## 用法
+
+```tsx
+import { Odometer } from '@guoyunhe/react-odometer';
+import { useState } from 'react';
+
+export function Counter() {
+  const [value, setValue] = useState(1234.56);
+
+  return (
+    <>
+      <Odometer value={value} duration={2000} decimals={2} separator=',' />
+      <button onClick={() => setValue((current) => current + 100)}>加 100</button>
+    </>
+  );
+}
+```

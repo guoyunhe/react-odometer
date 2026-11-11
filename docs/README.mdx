@@ -1,0 +1,27 @@
+import Playground from './Playground';
+
+# @guoyunhe/react-odometer
+
+A React component for smooth, rolling number animations. Change the value or tune the props below to see the digits roll.
+
+## Playground
+
+<Playground />
+
+## Usage
+
+```tsx
+import { Odometer } from '@guoyunhe/react-odometer';
+import { useState } from 'react';
+
+export function Counter() {
+  const [value, setValue] = useState(1234.56);
+
+  return (
+    <>
+      <Odometer value={value} duration={2000} decimals={2} separator=',' />
+      <button onClick={() => setValue((current) => current + 100)}>Add 100</button>
+    </>
+  );
+}
+```
