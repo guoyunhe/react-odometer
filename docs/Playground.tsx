@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   Card,
   Grid,
@@ -9,7 +8,6 @@ import {
   Slider,
   Stack,
   Text,
-  Title,
 } from '@mantine/core';
 import { useState } from 'react';
 
@@ -70,13 +68,6 @@ export default function Playground() {
           h='100%'
         >
           <Stack gap='md' align='center' justify='center' h='100%'>
-            <Group gap='xs' justify='center' wrap='wrap'>
-              <Badge variant='light'>Live preview</Badge>
-              <Badge variant='outline' color='gray'>
-                @guoyunhe/react-odometer
-              </Badge>
-            </Group>
-
             <Text
               component='div'
               fz={{ base: 40, sm: 56, md: 44, lg: 56 }}
@@ -110,10 +101,7 @@ export default function Playground() {
 
       <Grid.Col span={{ base: 12, md: 6 }}>
         <Card withBorder radius='lg' p={{ base: 'lg', sm: 'xl' }} h='100%'>
-          <Group justify='space-between' mb='md'>
-            <Title order={3} size='h4'>
-              Controls
-            </Title>
+          <Group justify='flex-end' mb='md'>
             <Button variant='subtle' size='compact-sm' onClick={reset}>
               Reset
             </Button>
