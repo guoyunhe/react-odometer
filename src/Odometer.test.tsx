@@ -190,11 +190,10 @@ describe('Odometer', () => {
   it('forwards native span props, event handlers, and refs', () => {
     const onClick = vi.fn();
     const ref = createRef<HTMLSpanElement>();
-    const { getByRole } = render(
+    const { getByTitle } = render(
       <Odometer
         value={42}
         id='current-count'
-        role='img'
         aria-label='Current count'
         data-kind='counter'
         title='Current count'
@@ -202,7 +201,7 @@ describe('Odometer', () => {
         ref={ref}
       />,
     );
-    const root = getByRole('img', { name: 'Current count' });
+    const root = getByTitle('Current count');
 
     expect(root.id).toBe('current-count');
     expect(root.getAttribute('data-kind')).toBe('counter');
