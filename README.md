@@ -2,19 +2,15 @@
 
 A React component for smooth, rolling number animations.
 
-[Live demo](https://guoyunhe.github.io/react-odometer/)
-
 ![Screen record](./docs/screen-record.webp)
 
-The recording above shows the digits rolling as the value changes. Open the live demo to try it yourself.
+The recording above shows the digits rolling as the value changes. Open the [**📺 Live Demo**](https://guoyunhe.github.io/react-odometer/) to try it yourself.
 
-## Install
+## Installation
 
 ```sh
-pnpm add @guoyunhe/react-odometer
+npm install --save @guoyunhe/react-odometer
 ```
-
-React 18 or later is required.
 
 ## Usage
 
@@ -56,22 +52,3 @@ For an aligned place-value change such as `19` to `29`, the units wheel turns on
 ## License
 
 Licensed under the [GNU Affero General Public License v3.0 only](./LICENSE).
-
-## Documentation site
-
-Run the Vite documentation site locally:
-
-```sh
-pnpm install
-pnpm dev
-```
-
-The site imports the component directly from `src`, so edits are reflected with hot module replacement. Build it with:
-
-```sh
-pnpm docs:build
-```
-
-To watch the library build instead, run `pnpm dev:lib`.
-
-GitHub Actions deploys the site to [GitHub Pages](https://guoyunhe.github.io/react-odometer/) when changes are pushed to `main`. Set the repository's Pages source to **GitHub Actions** in Settings → Pages to enable deployment.
