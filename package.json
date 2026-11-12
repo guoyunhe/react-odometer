@@ -25,7 +25,8 @@
   },
   "funding": "https://ko-fi.com/guoyunhe",
   "files": [
-    "dist"
+    "dist",
+    "docs"
   ],
   "type": "module",
   "sideEffects": false,

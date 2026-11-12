@@ -4,6 +4,10 @@ A React component for smooth, rolling number animations.
 
 [Live demo](https://guoyunhe.github.io/react-odometer/)
 
+![Screen record](./docs/screen-record.webp)
+
+The recording above shows the digits rolling as the value changes. Open the live demo to try it yourself.
+
 ## Install
 
 ```sh
